@@ -2,11 +2,13 @@ let sample = [];
 let animation = [];
 let num;
 let img;
+let lastkeys = ["a", "a", "a"];
+let isAnswerShowed = false;
 const alphabets = `abcdefghijklmnopqrstuvwxyz`.split('');
 
 function preload() {
   for(let i=0; i<alphabets.length; i++){
-    //sample[i] = loadSound(`./sounds/se${i}.wav`);
+    sample[i] = loadSound(`./sounds/se${i}.wav`);
   }
   img = loadImage(`./photos/photo.jpg`);
 }
@@ -16,7 +18,11 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  if(lastkeys[2] =="c" && lastkeys[1] == "a" && lastkeys[0] == "t"){
+    background(img);
+  }else{
+    background(0);
+  }
   if (animation.length > 0) {
     for (let i = 0; i < animation.length; i++) {
       animation[i].draw();
@@ -27,11 +33,15 @@ function draw() {
 function keyTyped() {
   for(let i=0; i<alphabets.length; i++){
     if (key == alphabets[i]) {
-      //sample[i].play();
+      sample[i].play();
       animation.push(new animations[alphabets[i]]);
       break;
     }
   }
+  //タイプしたキーを最近3つまで保存しておく
+  lastkeys[2] = lastkeys[1];
+  lastkeys[1] = lastkeys[0];
+  lastkeys[0] = key;
   if (animation.length > 26) {
     animation.shift();
   }
@@ -69,7 +79,7 @@ const animations = {
         rect(0, 0, 2, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   b: class{
@@ -92,17 +102,11 @@ const animations = {
         this.color.g = green(col) - this.fadeout;
         this.color.b = blue(col) - this.fadeout;
         noStroke();
-        let rotation = map(saturation(col), 0, 255, 0, 360);
-        let length = map(brightness(col), 0, 255, 0, 100);
+        let diameter = map(brightness(col), 0, 255, 1, 80);
         fill(this.color.r, this.color.r, this.color.b, 128);
-    
-        push();
-        translate(this.x, this.y);
-        rotate(radians(rotation));
-        rect(0, 0, 2, length);
-        pop();
+        ellipse(this.x, this.y, diameter);
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   c: class{
@@ -135,7 +139,7 @@ const animations = {
         rect(0, 0, 2, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   d: class{
@@ -168,7 +172,7 @@ const animations = {
         rect(0, 0, 3, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   e: class{
@@ -201,7 +205,7 @@ const animations = {
         rect(0, 0, 4, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   f: class{
@@ -234,7 +238,7 @@ const animations = {
         rect(0, 0, 5, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   g: class{
@@ -267,7 +271,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   g: class{
@@ -300,7 +304,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   h: class{
@@ -333,7 +337,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   i: class{
@@ -348,25 +352,20 @@ const animations = {
       this.fadeout = 0;
     }
     draw() {
-      for(let i=0; i<100; i++){
-        this.x = int(random(width*(17/26), width*(18/26)));
-        this.y = int(random(height));
-        let col = img.get(this.x, this.y);
-        this.color.r = red(col) - this.fadeout;
-        this.color.g = green(col) - this.fadeout;
-        this.color.b = blue(col) - this.fadeout;
-        noStroke();
-        let rotation = map(saturation(col), 0, 255, 0, 360);
-        let length = map(brightness(col), 0, 255, 0, 100);
-        fill(this.color.r, this.color.r, this.color.b, 128);
-    
-        push();
-        translate(this.x, this.y);
-        rotate(radians(rotation));
-        rect(0, 0, 6, length);
-        pop();
+      for(let x=width*(17/26); x<width*(18/26); x+=10){
+        for(let y=0; y<height; y+=10){
+          this.x = x;
+          this.y = y;
+          let col = img.get(this.x, this.y);
+          this.color.r = red(col) - this.fadeout;
+          this.color.g = green(col) - this.fadeout;
+          this.color.b = blue(col) - this.fadeout;
+          noStroke();
+          fill(this.color.r, this.color.r, this.color.b, 128);
+          ellipse(this.x, this.y, 10);
+        }
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   j: class{
@@ -399,7 +398,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   k: class{
@@ -429,10 +428,10 @@ const animations = {
         push();
         translate(this.x, this.y);
         rotate(radians(rotation));
-        rect(0, 0, 6, length);
+        rect(0, 0, 7, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   l: class{
@@ -462,10 +461,10 @@ const animations = {
         push();
         translate(this.x, this.y);
         rotate(radians(rotation));
-        rect(0, 0, 6, length);
+        rect(0, 0, 3, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   m: class{
@@ -480,7 +479,7 @@ const animations = {
       this.fadeout = 0;
     }
     draw() {
-      for(let i=0; i<100; i++){
+      for(let i=0; i<50; i++){
         this.x = int(random(width*(13/26), width*(14/26)));
         this.y = int(random(height));
         let col = img.get(this.x, this.y);
@@ -495,10 +494,10 @@ const animations = {
         push();
         translate(this.x, this.y);
         rotate(radians(rotation));
-        rect(0, 0, 6, length);
+        rect(0, 0, 2, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   n: class{
@@ -513,25 +512,20 @@ const animations = {
       this.fadeout = 0;
     }
     draw() {
-      for(let i=0; i<100; i++){
-        this.x = int(random(width*(12/26), width*(13/26)));
-        this.y = int(random(height));
-        let col = img.get(this.x, this.y);
-        this.color.r = red(col) - this.fadeout;
-        this.color.g = green(col) - this.fadeout;
-        this.color.b = blue(col) - this.fadeout;
-        noStroke();
-        let rotation = map(saturation(col), 0, 255, 0, 360);
-        let length = map(brightness(col), 0, 255, 0, 100);
-        fill(this.color.r, this.color.r, this.color.b, 128);
-    
-        push();
-        translate(this.x, this.y);
-        rotate(radians(rotation));
-        rect(0, 0, 6, length);
-        pop();
+      for(let x=width*(12/26); x<width*(13/26); x+=10){
+        for(let y=0; y<height; y+=10){
+          this.x = x;
+          this.y = y;
+          let col = img.get(this.x, this.y);
+          this.color.r = red(col) - this.fadeout;
+          this.color.g = green(col) - this.fadeout;
+          this.color.b = blue(col) - this.fadeout;
+          noStroke();
+          fill(this.color.r, this.color.r, this.color.b, 128);
+          rect(this.x, this.y, 10, 10)
+        }
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   o: class{
@@ -564,7 +558,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   p: class{
@@ -579,25 +573,20 @@ const animations = {
       this.fadeout = 0;
     }
     draw() {
-      for(let i=0; i<100; i++){
-        this.x = int(random(width*(10/26), width*(11/26)));
-        this.y = int(random(height));
-        let col = img.get(this.x, this.y);
-        this.color.r = red(col) - this.fadeout;
-        this.color.g = green(col) - this.fadeout;
-        this.color.b = blue(col) - this.fadeout;
-        noStroke();
-        let rotation = map(saturation(col), 0, 255, 0, 360);
-        let length = map(brightness(col), 0, 255, 0, 100);
-        fill(this.color.r, this.color.r, this.color.b, 128);
-    
-        push();
-        translate(this.x, this.y);
-        rotate(radians(rotation));
-        rect(0, 0, 6, length);
-        pop();
+      for(let x=width*(10/26); x<width*(11/26); x+=20){
+        for(let y=0; y<height; y+=20){
+          this.x = x;
+          this.y = y;
+          let col = img.get(this.x, this.y);
+          this.color.r = red(col) - this.fadeout;
+          this.color.g = green(col) - this.fadeout;
+          this.color.b = blue(col) - this.fadeout;
+          noStroke();
+          fill(this.color.r, this.color.r, this.color.b, 128);
+          ellipse(this.x, this.y, 30, 20)
+        }
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   q: class{
@@ -627,10 +616,10 @@ const animations = {
         push();
         translate(this.x, this.y);
         rotate(radians(rotation));
-        rect(0, 0, 6, length);
+        rect(0, 0, 4, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   r: class{
@@ -663,7 +652,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   s: class{
@@ -693,10 +682,10 @@ const animations = {
         push();
         translate(this.x, this.y);
         rotate(radians(rotation));
-        rect(0, 0, 6, length);
+        rect(0, 0, 10, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   t: class{
@@ -711,7 +700,7 @@ const animations = {
       this.fadeout = 0;
     }
     draw() {
-      for(let i=0; i<100; i++){
+      for(let i=0; i<700; i++){
         this.x = int(random(width*(6/26), width*(7/26)));
         this.y = int(random(height));
         let col = img.get(this.x, this.y);
@@ -719,17 +708,11 @@ const animations = {
         this.color.g = green(col) - this.fadeout;
         this.color.b = blue(col) - this.fadeout;
         noStroke();
-        let rotation = map(saturation(col), 0, 255, 0, 360);
-        let length = map(brightness(col), 0, 255, 0, 100);
         fill(this.color.r, this.color.r, this.color.b, 128);
-    
-        push();
-        translate(this.x, this.y);
-        rotate(radians(rotation));
-        rect(0, 0, 6, length);
-        pop();
+        //円を描画
+        ellipse(this.x, this.y, 10);
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   u: class{
@@ -762,7 +745,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   v: class{
@@ -777,7 +760,7 @@ const animations = {
       this.fadeout = 0;
     }
     draw() {
-      for(let i=0; i<100; i++){
+      for(let i=0; i<300; i++){
         this.x = int(random(width*(4/26), width*(5/26)));
         this.y = int(random(height));
         let col = img.get(this.x, this.y);
@@ -785,17 +768,11 @@ const animations = {
         this.color.g = green(col) - this.fadeout;
         this.color.b = blue(col) - this.fadeout;
         noStroke();
-        let rotation = map(saturation(col), 0, 255, 0, 360);
-        let length = map(brightness(col), 0, 255, 0, 100);
         fill(this.color.r, this.color.r, this.color.b, 128);
-    
-        push();
-        translate(this.x, this.y);
-        rotate(radians(rotation));
-        rect(0, 0, 6, length);
-        pop();
+        //円を描画
+        ellipse(this.x, this.y, 10);
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   w: class{
@@ -810,7 +787,7 @@ const animations = {
       this.fadeout = 0;
     }
     draw() {
-      for(let i=0; i<100; i++){
+      for(let i=0; i<200; i++){
         this.x = int(random(width*(3/26), width*(4/26)));
         this.y = int(random(height));
         let col = img.get(this.x, this.y);
@@ -818,17 +795,10 @@ const animations = {
         this.color.g = green(col) - this.fadeout;
         this.color.b = blue(col) - this.fadeout;
         noStroke();
-        let rotation = map(saturation(col), 0, 255, 0, 360);
-        let length = map(brightness(col), 0, 255, 0, 100);
         fill(this.color.r, this.color.r, this.color.b, 128);
-    
-        push();
-        translate(this.x, this.y);
-        rotate(radians(rotation));
-        rect(0, 0, 6, length);
-        pop();
+        ellipse(this.x, this.y, 5);
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   x: class{
@@ -852,11 +822,10 @@ const animations = {
         this.color.b = blue(col) - this.fadeout;
         noStroke();
         fill(this.color.r, this.color.r, this.color.b, 128);
-
         triangle(this.x, this.y, this.x+10, this.y+10, this.x+10, this.y-10);
         
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   y: class{
@@ -880,10 +849,9 @@ const animations = {
         this.color.b = blue(col) - this.fadeout;
         noStroke();
         fill(this.color.r, this.color.r, this.color.b, 128);
-        //円を描画
-        ellipse(this.x, this.y, 10);
+        quad(this.x, this.y, this.x-10, this.y+10, this.x+5, this.y+10, this.x+5, this.y);
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   },
   z: class{
@@ -908,10 +876,9 @@ const animations = {
         noStroke();
         let diameter = map(brightness(col), 0, 255, 1, 80);
         fill(this.color.r, this.color.r, this.color.b, 128);
-        //円を描画
         ellipse(this.x, this.y, diameter);
       }
-      this.fadeout += 2;
+      this.fadeout += 3;
     }
   }
 }

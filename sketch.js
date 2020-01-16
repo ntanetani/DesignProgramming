@@ -69,7 +69,7 @@ const animations = {
         rect(0, 0, 2, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   b: class{
@@ -102,7 +102,7 @@ const animations = {
         rect(0, 0, 2, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   c: class{
@@ -135,7 +135,7 @@ const animations = {
         rect(0, 0, 2, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   d: class{
@@ -168,7 +168,7 @@ const animations = {
         rect(0, 0, 3, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   e: class{
@@ -201,7 +201,7 @@ const animations = {
         rect(0, 0, 4, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   f: class{
@@ -234,7 +234,7 @@ const animations = {
         rect(0, 0, 5, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   g: class{
@@ -267,7 +267,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   g: class{
@@ -300,7 +300,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   h: class{
@@ -333,7 +333,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   i: class{
@@ -366,7 +366,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   j: class{
@@ -399,7 +399,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   k: class{
@@ -432,7 +432,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   l: class{
@@ -465,7 +465,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   m: class{
@@ -498,7 +498,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   n: class{
@@ -531,7 +531,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   o: class{
@@ -564,7 +564,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   p: class{
@@ -597,7 +597,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   q: class{
@@ -630,7 +630,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   r: class{
@@ -663,7 +663,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   s: class{
@@ -696,7 +696,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   t: class{
@@ -729,7 +729,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   u: class{
@@ -762,7 +762,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   v: class{
@@ -795,10 +795,10 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
-  we: class{
+  w: class{
     constructor() {
       this.x = 0;
       this.y = 0;
@@ -828,7 +828,7 @@ const animations = {
         rect(0, 0, 6, length);
         pop();
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   x: class{
@@ -851,17 +851,12 @@ const animations = {
         this.color.g = green(col) - this.fadeout;
         this.color.b = blue(col) - this.fadeout;
         noStroke();
-        let rotation = map(saturation(col), 0, 255, 0, 360);
-        let length = map(brightness(col), 0, 255, 0, 100);
         fill(this.color.r, this.color.r, this.color.b, 128);
-    
-        push();
-        translate(this.x, this.y);
-        rotate(radians(rotation));
-        rect(0, 0, 6, length);
-        pop();
+
+        triangle(this.x, this.y, this.x+10, this.y+10, this.x+10, this.y-10);
+        
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   y: class{
@@ -884,17 +879,11 @@ const animations = {
         this.color.g = green(col) - this.fadeout;
         this.color.b = blue(col) - this.fadeout;
         noStroke();
-        let rotation = map(saturation(col), 0, 255, 0, 360);
-        let length = map(brightness(col), 0, 255, 0, 100);
         fill(this.color.r, this.color.r, this.color.b, 128);
-    
-        push();
-        translate(this.x, this.y);
-        rotate(radians(rotation));
-        rect(0, 0, 6, length);
-        pop();
+        //円を描画
+        ellipse(this.x, this.y, 10);
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   },
   z: class{
@@ -922,7 +911,7 @@ const animations = {
         //円を描画
         ellipse(this.x, this.y, diameter);
       }
-      this.fadeout += 1;
+      this.fadeout += 2;
     }
   }
 }

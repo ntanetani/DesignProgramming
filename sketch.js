@@ -5,7 +5,7 @@ const alphabets = 'asdfg'.split('');
 
 function preload() {
   for(let i=0; i<alphabets.length; i++){
-    sample[i] = loadSound(`./se${i}.wav`);
+    sample[i] = loadSound(`./sounds/se${i}.wav`);
   }
 }
 

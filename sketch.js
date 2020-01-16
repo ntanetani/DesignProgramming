@@ -32,7 +32,7 @@ function keyTyped() {
       break;
     }
   }
-  if (animation.length > 20) {
+  if (animation.length > 26) {
     animation.shift();
   }
 }
@@ -917,15 +917,10 @@ const animations = {
         this.color.g = green(col) - this.fadeout;
         this.color.b = blue(col) - this.fadeout;
         noStroke();
-        let rotation = map(saturation(col), 0, 255, 0, 360);
-        let length = map(brightness(col), 0, 255, 0, 100);
+        let diameter = map(brightness(col), 0, 255, 1, 80);
         fill(this.color.r, this.color.r, this.color.b, 128);
-    
-        push();
-        translate(this.x, this.y);
-        rotate(radians(rotation));
-        rect(0, 0, 6, length);
-        pop();
+        //円を描画
+        ellipse(this.x, this.y, diameter);
       }
       this.fadeout += 1;
     }
